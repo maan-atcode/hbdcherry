@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #ffe4ec, #fff7d6);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      height: 80vh;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    .canvas-side {
+      background: #0f172a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    .text-side {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: #1f2933;
+    }
+
+    .text-side h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      color: #e11d48;
+    }
+
+    .text-side p {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .signature {
+      margin-top: 30px;
+      font-style: italic;
+      font-size: 1.1rem;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+      .canvas-side {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="canvas-side">
+      <canvas id="flowerCanvas"></canvas>
+    </div>
+    <div class="text-side">
+      <h1>Happy Birthday 🎉</h1>
+      <p>
+        May your day bloom with happiness,<br />
+          your year glow with beautiful moments,<br />
+          and your life stay as magical as this flower 💜 <br />
+          <br />
+          Thank you for coming into my life,<br />
+          handling my tantrums and being a person <br />
+          to whom I can share my feelings.<br />
+          <br />
+          I hope and pray that 2026 is good to you.<br />
+          May you receive what you pray for .<br />
+          Anyways, be glad that you got me as your friend 😏<br />
+          <br />
+          De ja ... Happy Birthdayyyyyy !!
+      </p>
+      <div class="signature">With all my love 💖</div>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('flowerCanvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let t = 0;
+
+    function drawFlower() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.save();
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+
+      const petals = 200;
+      const scale = Math.min(canvas.width, canvas.height) * 0.35;
+
+      ctx.beginPath();
+      for (let i = 0; i < petals; i++) {
+        const angle = i * 0.1;
+        const radius = scale * Math.sin(6 * angle + t);
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+        ctx.lineTo(x, y);
+      }
+
+      ctx.closePath();
+      ctx.strokeStyle = 'rgba(255, 182, 193, 0.9)';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.restore();
+      t += 0.01;
+      requestAnimationFrame(drawFlower);
+    }
+
+    drawFlower();
+  </script>
+</body>
+</html>
